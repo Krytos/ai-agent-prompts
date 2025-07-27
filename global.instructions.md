@@ -24,11 +24,15 @@ All of the following instructions are to be strictly followed by the AI agent in
 3. **SHRIMP Task Manager** - For complex project management and structured thinking
 
 **Environment Awareness:**
-- **WSL Environment Detection:** Desktop Commander is running in WSL - always check for mounted paths:
+- **WSL Environment Detection:** Desktop Commander is running in WSL - ALWAYS apply mandatory path conversions:
   - Windows C: drive is mounted at `/mnt/c/`
   - Windows D: drive is mounted at `/mnt/d/`
-  - Convert Windows paths like `C:\Users\Kevin\...` to `/mnt/c/Users/Kevin/...`
-  - Convert Windows paths like `D:\Dev\...` to `/mnt/d/Dev/...`
+  - **MANDATORY PATH CONVERSIONS:**
+    - `C:\Users\Kevin\...` → `/mnt/c/Users/Kevin/...`
+    - `D:\Dev\...` → `/mnt/d/Dev/...`
+    - Remove any URL encoding (e.g., `%3A` → `:`)
+  - **CRITICAL:** All d94_ tool calls MUST use WSL-compatible paths
+  - **ERROR HANDLING:** If you see EACCES errors with paths like `/c%3A`, immediately convert to `/mnt/c/`
 
 **Structured Thinking Priority:**
 - **When no thinking model is available:** ALWAYS use `d94_process_thought` for complex analysis, problem-solving, and decision-making
@@ -109,6 +113,18 @@ metadata: {
 - Leverage memory to personalize coding assistance and suggestions
 - Store successful solutions and approaches for future reference
 
+## 5.1. WSL Environment Troubleshooting
+
+**Common SHRIMP Task Manager Issues:**
+- **EACCES Permission Errors:** Usually indicate Windows path passed to WSL tool
+- **Path Conversion Rules:**
+  - `C:\Users\Kevin\...` → `/mnt/c/Users/Kevin/...`
+  - `D:\Dev\...` → `/mnt/d/Dev/...`
+  - Remove URL encoding: `%3A` → `:`, `%2F` → `/`
+- **Before ANY d94_ tool call:** Verify path format is WSL-compatible
+- **Error Recovery:** If you see `/c%3A` or similar, immediately convert to `/mnt/c/`
+- **Workspace Context:** When working in VS Code on Windows, convert workspace paths before passing to Desktop Commander tools
+
 ## 6. Core Tool Integration
 
 **Essential Tools for All Interactions:**
@@ -129,11 +145,16 @@ metadata: {
 - **Test Management:** Use `test_search` and related testing tools
 
 **Desktop Commander Fallback (When GitHub Copilot Tools Insufficient):**
+- **MANDATORY WSL PATH CONVERSION:** Before ANY d94_ tool call, ensure Windows paths are converted:
+  - `C:\` → `/mnt/c/`
+  - `D:\` → `/mnt/d/`
+  - URL decode any %3A, %2F sequences
+  - Example: `C:\Users\Kevin\file.txt` → `/mnt/c/Users/Kevin/file.txt`
 - **Complex File Operations:** Use `d94_*` tools for advanced file management
 - **Browser Automation:** Use `d94_browser_*` tools for web testing
 - **Process Management:** Use `d94_start_process` and `d94_interact_with_process`
 - **Advanced Search:** Use `d94_search_*` tools for complex searches
-- **WSL Path Handling:** Always convert Windows paths to mounted WSL paths (/mnt/c/, /mnt/d/)
+- **ERROR RECOVERY:** If EACCES permission errors occur, verify WSL path conversion
 
 ## 6.1. SHRIMP Methodology Integration
 
@@ -166,9 +187,11 @@ When Kevin mentions complex projects, coding tasks, or multi-step work, automati
 - **Dynamic Management:** Use `d94_update_task` for task refinement and `d94_delete_task` for removing obsolete tasks
 
 **P - Process-oriented:** Follow systematic workflows
+- **Path Compatibility:** ALWAYS verify WSL path format before d94_ tool calls
 - **Task Organization:** Use `d94_list_tasks` for status tracking, `d94_query_task` for intelligent filtering, and `d94_get_task_detail` for comprehensive task information
 - **Project Lifecycle:** Apply `d94_clear_all_tasks` for fresh project starts or major context switches
 - **Documentation Integration:** Integrate with Obsidian workflow for process documentation, learning capture, and knowledge organization
+- **Error Handling:** If EACCES errors occur, convert Windows paths to WSL format and retry
 
 **SHRIMP Trigger Conditions (Automatic Application):**
 - Multi-file code changes or refactoring projects
@@ -182,11 +205,13 @@ When Kevin mentions complex projects, coding tasks, or multi-step work, automati
 **SHRIMP Workflow for Complex Coding Projects:**
 
 1. **Project Initiation (Systematic):**
+   - **WSL Path Check:** Convert any Windows paths to WSL format before tool calls
    - Use `d94_analyze_task` to analyze requirements and assess technical challenges
    - Apply `d94_process_thought` for architectural decisions and approach evaluation (MANDATORY when no thinking model available)
    - Use `semantic_search` to understand existing codebase patterns and conventions
 
 2. **Strategic Planning (Holistic + Modular):**
+   - **Path Verification:** Ensure all task-related paths are WSL-compatible
    - Use `d94_plan_task` to create comprehensive project strategy with dependencies
    - Apply `d94_split_tasks` to break down into executable components with clear acceptance criteria
    - Query memory for Kevin's preferences and integrate past successful patterns
