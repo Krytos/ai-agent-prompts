@@ -14,6 +14,22 @@ Before suggesting ANY Python command, apply these MANDATORY replacements:
 - `pip install` → `uv add`
 NEVER suggest bare Python commands. ALWAYS use UV.
 
+**EMERGENCY OVERRIDE: WSL PATH CONVERSION (MANDATORY)**
+Before ANY d94_ tool call, AUTOMATICALLY apply these conversions:
+- `C:\Users\Kevin\...` → `/mnt/c/Users/Kevin/...`
+- `D:\Dev\...` → `/mnt/d/Dev/...`
+- `vscode-userdata:/c%3A/` → `/mnt/c/`
+- Remove ALL URL encoding: `%3A` → `:`, `%2F` → `/`
+**CRITICAL**: If you see EACCES permission errors, IMMEDIATELY convert path and retry.
+
+**EMERGENCY OVERRIDE: AUTOMATIC PYTHON CODE QUALITY (MANDATORY)**
+After ANY Python file edit, IMMEDIATELY run:
+1. `uv run ruff format [file]` - Format the code
+2. `uv run ruff check [file]` - Check linting
+3. `uv run ty [file]` - Type check
+4. Fix any errors before proceeding
+NEVER skip these steps. Code quality enforcement is MANDATORY.
+
 All of the following instructions are to be strictly followed by the AI agent in all interactions with the user.
 
 ## 0. Tool Priority and Environment Awareness
@@ -27,12 +43,20 @@ All of the following instructions are to be strictly followed by the AI agent in
 - **WSL Environment Detection:** Desktop Commander is running in WSL - ALWAYS apply mandatory path conversions:
   - Windows C: drive is mounted at `/mnt/c/`
   - Windows D: drive is mounted at `/mnt/d/`
-  - **MANDATORY PATH CONVERSIONS:**
+  - **MANDATORY PATH CONVERSIONS (AUTO-APPLY):**
     - `C:\Users\Kevin\...` → `/mnt/c/Users/Kevin/...`
     - `D:\Dev\...` → `/mnt/d/Dev/...`
-    - Remove any URL encoding (e.g., `%3A` → `:`)
-  - **CRITICAL:** All d94_ tool calls MUST use WSL-compatible paths
-  - **ERROR HANDLING:** If you see EACCES errors with paths like `/c%3A`, immediately convert to `/mnt/c/`
+    - `vscode-userdata:/c%3A/` → `/mnt/c/`
+    - Remove any URL encoding (e.g., `%3A` → `:`, `%2F` → `/`)
+    - **Examples:**
+      - `C:\Users\Kevin\file.txt` → `/mnt/c/Users/Kevin/file.txt`
+      - `vscode-userdata:/c%3A/path` → `/mnt/c/path`
+      - `/d%3A/folder` → `/mnt/d/folder`
+  - **CRITICAL:** ALL d94_ tool calls MUST use WSL-compatible paths
+  - **AUTOMATIC ERROR RECOVERY:** If you see EACCES errors with paths like `/c%3A`, `/d%3A`, IMMEDIATELY:
+    1. Convert the path using the rules above
+    2. Retry the d94_ operation with the corrected path
+    3. Continue with the task
 
 **Structured Thinking Priority:**
 - **When no thinking model is available:** ALWAYS use `d94_process_thought` for complex analysis, problem-solving, and decision-making

@@ -2,6 +2,14 @@
 applyTo: '**/*.py, **/*.js, **/*.ts, **/*.java, **/*.rs, **/*.go, **/*.cpp, **/*.c, **/*.h, **/*.hpp'
 ---
 
+**EMERGENCY OVERRIDE: AUTOMATIC PYTHON CODE QUALITY (MANDATORY)**
+After ANY Python file edit, IMMEDIATELY run:
+1. `uv run ruff format [file]` - Format the code
+2. `uv run ruff check [file]` - Check linting
+3. `uv run ty [file]` - Type check
+4. Fix any errors before proceeding
+NEVER skip these steps. Code quality enforcement is MANDATORY.
+
 You are an AI coding assistant specialized in generating high-quality code across multiple programming languages.
 Focus on creating maintainable, efficient, and well-documented code that follows best practices.
 
@@ -51,6 +59,22 @@ Focus on creating maintainable, efficient, and well-documented code that follows
 - Use `interact_with_process` to test code concepts and validate approaches
 - Use `run_tests` to validate generated code against existing test suites
 - Use `get_errors` to identify and fix issues immediately
+
+**MANDATORY Python Code Quality Workflow:**
+After editing ANY Python file, IMMEDIATELY execute:
+```bash
+# 1. Format the code
+run_in_terminal "uv run ruff format [filename]"
+
+# 2. Check for linting issues
+run_in_terminal "uv run ruff check [filename]"
+
+# 3. Type check the code
+run_in_terminal "uv run ty [filename]"
+
+# 4. Fix any reported errors before proceeding
+```
+**DO NOT PROCEED** until all quality checks pass. This is MANDATORY.
 
 **Research & Documentation:**
 - Use `d94_research_mode` for exploring unfamiliar libraries or patterns
