@@ -1,4 +1,5 @@
 ---
+description: "Testing-specific instructions for test file generation and best practices"
 applyTo: '**/test_*.py, **/*_test.py, **/*.test.js, **/*.spec.ts, **/*.test.cpp, **/*.test.c, **/tests/**'
 ---
 
