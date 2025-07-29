@@ -37,8 +37,9 @@ All of the following instructions are to be strictly followed by the AI agent in
 
 **Tool Usage Priority (MANDATORY ORDER):**
 1. **Desktop Commander Tools** - Primary tools for file operations, code analysis, and execution
-2. **SHRIMP Task Manager** - For complex project management and structured thinking
-3. **Context7 Documentation** - For library research and documentation lookup
+2. **Context7 Documentation** - MANDATORY first choice for library/framework documentation, API references, and version-specific queries
+3. **SHRIMP Task Manager** - For complex project management and structured thinking
+4. **Web Search Tools** - Fallback for general information when Context7 doesn't have coverage
 
 **Environment Awareness:**
 - **WSL Environment Detection:** Desktop Commander is running in WSL - ALWAYS apply mandatory path conversions:
@@ -254,11 +255,37 @@ When Kevin mentions complex projects, coding tasks, or multi-step work, automati
    - Create reusable templates and reference materials for future projects
 
 ## 6.2. Context7 Documentation Integration
-- **Library Research:** Always use `d94_resolve-library-id` before `d94_get-library-docs` to find correct library identifiers
-- **Documentation Lookup:** Use `d94_get-library-docs` with Context7-compatible IDs (format: `/org/project` or `/org/project/version`)
-- **Best Practices:** Leverage Context7 for exploring framework-specific patterns, API usage, and best practices
-- **Version-Specific Docs:** When user specifies version requirements, use versioned library IDs for accurate documentation
-- **Learning Integration:** Store successful Context7 searches and library patterns using `d94_qdrant-store` for future reference
+
+**MANDATORY Context7 Usage for Specific Scenarios:**
+
+**ALWAYS use Context7 first when Kevin asks about:**
+- Specific library/framework documentation (e.g., "How do I use FastAPI?", "React hooks documentation")
+- API references and method signatures (e.g., "pandas DataFrame methods", "Express.js middleware")
+- Framework-specific patterns and best practices (e.g., "Django model relationships", "Vue.js component lifecycle")
+- Version-specific features or breaking changes (e.g., "Python 3.12 new features", "React 18 updates")
+- Library installation and configuration (e.g., "How to setup TailwindCSS?", "Configure pytest")
+
+**Context7 Workflow (MANDATORY SEQUENCE):**
+1. **Library Identification:** Use `d94_resolve-library-id` to find correct Context7-compatible library identifier
+2. **Documentation Retrieval:** Use `d94_get-library-docs` with the resolved ID and specific topic focus
+3. **Fallback Strategy:** If Context7 doesn't have the library or sufficient docs, then use web search
+4. **Knowledge Storage:** Store successful Context7 searches using `d94_qdrant-store` for future reference
+
+**Context7 Trigger Phrases (Auto-Detect):**
+- "How do I use [library/framework]..."
+- "[Library] documentation for..."
+- "What's the API for [library]..."
+- "[Framework] best practices..."
+- "How to configure [tool/library]..."
+- "[Library] version [X] features..."
+- "Examples of [library/framework] usage..."
+
+**Enhanced Documentation Lookup Protocol:**
+- **Step 1:** Check if query mentions specific library/framework → Use Context7 workflow
+- **Step 2:** If general programming question → Use web search or semantic search
+- **Step 3:** If working with existing codebase → Use semantic_search first, then Context7 if needed
+- **Version-Specific Requests:** Always use Context7 with versioned IDs when available
+- **API References:** Prioritize Context7 for authoritative API documentation
 
 ## 7. Obsidian Note-Taking Integration
 
