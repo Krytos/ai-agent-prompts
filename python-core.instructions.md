@@ -1,4 +1,5 @@
 ---
+description: "Python-specific instructions with uv command enforcement and coding standards"
 applyTo: '**/*.py, **/*.toml'
 ---
 

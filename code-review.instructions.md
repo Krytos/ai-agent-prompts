@@ -1,4 +1,5 @@
 ---
+description: "Code review instructions for comprehensive analysis and feedback"
 applyTo: '**/*.py, **/*.js, **/*.ts, **/*.java, **/*.rs, **/*.go, **/*.cpp, **/*.c, **/*.h, **/*.hpp'
 ---
 

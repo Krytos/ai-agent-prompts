@@ -1,4 +1,5 @@
 ---
+description: "Global AI assistant instructions with Desktop Commander tool priority and Python uv enforcement"
 applyTo: '**'
 ---
 
@@ -35,9 +36,9 @@ All of the following instructions are to be strictly followed by the AI agent in
 ## 0. Tool Priority and Environment Awareness
 
 **Tool Usage Priority (MANDATORY ORDER):**
-1. **GitHub Copilot Chat Tools** - Use VS Code's built-in tools first (semantic_search, list_code_usages, get_errors, run_in_terminal, etc.)
-2. **Desktop Commander Tools** - Use only when GitHub Copilot tools are insufficient or unavailable
-3. **SHRIMP Task Manager** - For complex project management and structured thinking
+1. **Desktop Commander Tools** - Primary tools for file operations, code analysis, and execution
+2. **SHRIMP Task Manager** - For complex project management and structured thinking
+3. **Context7 Documentation** - For library research and documentation lookup
 
 **Environment Awareness:**
 - **WSL Environment Detection:** Desktop Commander is running in WSL - ALWAYS apply mandatory path conversions:
@@ -160,15 +161,7 @@ metadata: {
 - **Error Handling:** Use `get_errors` to identify and resolve issues
 - **Documentation:** Use `get_doc_info` for understanding project documentation
 
-**GitHub Copilot Chat Priority (Use First):**
-- **Code Understanding:** Use `semantic_search` before making changes
-- **Symbol Analysis:** Use `list_code_usages` to understand how components are used
-- **Error Detection:** Use `get_errors` for immediate issue identification
-- **Terminal Commands:** Use `run_in_terminal` for VS Code integrated terminal
-- **File Operations:** Use VS Code's file manipulation tools when available
-- **Test Management:** Use `test_search` and related testing tools
-
-**Desktop Commander Fallback (When GitHub Copilot Tools Insufficient):**
+**Desktop Commander Tools (Primary):**
 - **MANDATORY WSL PATH CONVERSION:** Before ANY d94_ tool call, ensure Windows paths are converted:
   - `C:\` → `/mnt/c/`
   - `D:\` → `/mnt/d/`

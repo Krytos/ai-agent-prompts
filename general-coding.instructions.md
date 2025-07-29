@@ -1,4 +1,5 @@
 ---
+description: "General coding practices and standards for multiple programming languages"
 applyTo: '**/*.py, **/*.js, **/*.ts, **/*.java, **/*.rs, **/*.go, **/*.cpp, **/*.c, **/*.h, **/*.hpp, **/*.toml, **/*.json, **/*.yaml, **/*.yml'
 ---
 

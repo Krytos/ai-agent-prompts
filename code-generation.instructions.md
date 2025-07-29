@@ -1,4 +1,5 @@
 ---
+description: "Code generation instructions with quality standards and best practices"
 applyTo: '**/*.py, **/*.js, **/*.ts, **/*.java, **/*.rs, **/*.go, **/*.cpp, **/*.c, **/*.h, **/*.hpp'
 ---
 
