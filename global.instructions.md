@@ -1,316 +1,133 @@
+// filepath: c:\Users\Kevin\AppData\Roaming\Code\User\prompts\global.instructions.md
 ---
-description: "Global AI assistant instructions with Desktop Commander tool priority and Python uv enforcement"
+description: "Essential global instructions - Kevin's toolchain preferences and environment handling"
 applyTo: '**'
 ---
 
-**EMERGENCY OVERRIDE: PYTHON COMMAND ENFORCEMENT**
-Before suggesting ANY Python command, apply these MANDATORY replacements:
-- `python` → `uv run python`
-- `python -m ruff check` → `uv run ruff check`
-- `python -m pytest` → `uv run pytest`
-- `pytest` → `uv run pytest`
-- `ruff check` → `uv run ruff check`
-- `mypy` → `uv run ty`
-- `pyright` → `uv run ty`
-- `pip install` → `uv add`
-NEVER suggest bare Python commands. ALWAYS use UV.
+**PYTHON COMMAND ENFORCEMENT (MANDATORY)**
+Auto-replace ALL Python commands:
+- `python` → `uv run python` | `pip install` → `uv add` | `pytest` → `uv run pytest`
+- `ruff check/format` → `uv run ruff check/format` | `mypy/pyright` → `uv run ty`
+NEVER suggest bare Python commands.
 
-**EMERGENCY OVERRIDE: WSL PATH CONVERSION (MANDATORY)**
-Before ANY d94_ tool call, AUTOMATICALLY apply these conversions:
-- `C:\Users\Kevin\...` → `/mnt/c/Users/Kevin/...`
-- `D:\Dev\...` → `/mnt/d/Dev/...`
-- `vscode-userdata:/c%3A/` → `/mnt/c/`
-- Remove ALL URL encoding: `%3A` → `:`, `%2F` → `/`
-**CRITICAL**: If you see EACCES permission errors, IMMEDIATELY convert path and retry.
+**ENVIRONMENT PATH HANDLING (AUTO-APPLY)**
+- **Desktop Commander tools:** WSL paths (`C:\` → `/mnt/c/`, remove URL encoding)
+- **GitHub Copilot tools:** Windows paths (use as-is)
 
-**EMERGENCY OVERRIDE: AUTOMATIC PYTHON CODE QUALITY (MANDATORY)**
-After ANY Python file edit, IMMEDIATELY run:
-1. `uv run ruff format [file]` - Format the code
-2. `uv run ruff check [file]` - Check linting
-3. `uv run ty [file]` - Type check
-4. Fix any errors before proceeding
-NEVER skip these steps. Code quality enforcement is MANDATORY.
+**PYTHON CODE QUALITY (AUTO-EXECUTE)**
+After ANY Python edit: `uv run ruff format` → `uv run ruff check --fix` → `uv run ty check`
 
-All of the following instructions are to be strictly followed by the AI agent in all interactions with the user.
+## User & Memory
+- User: Kevin
+- Memory: Use `qdrant-find` at start, `qdrant-store` for new preferences
+- **Knowledge Storage**:
+  - **Global/General**: Use `qdrant-global` tool for non-project knowledge
+  - **Project-Specific**: Use project qdrant tool (check availability first)
+- Categories: Identity, behaviors, preferences, goals, technical context, work patterns
 
-## 0. Tool Priority and Environment Awareness
+## Tool Priority
+1. **GitHub Copilot Tools** (Windows): `semantic_search`, `list_code_usages`, `get_errors`, `run_in_terminal`
+2. **Desktop Commander Tools** (WSL): Desktop Commander tools (convert paths first)
+3. **SHRIMP Task Manager**: Complex projects (`plan_task`, `split_tasks`)
+4. **Context7**: Library documentation (`resolve-library-id` → `get-library-docs`)
 
-**Tool Usage Priority (MANDATORY ORDER):**
-1. **Desktop Commander Tools** - Primary tools for file operations, code analysis, and execution
-2. **Context7 Documentation** - MANDATORY first choice for library/framework documentation, API references, and version-specific queries
-3. **SHRIMP Task Manager** - For complex project management and structured thinking
-4. **Web Search Tools** - Fallback for general information when Context7 doesn't have coverage
+## Kevin's Python Toolchain (MANDATORY)
+- **Type Checking:** ONLY `ty` (never mypy/pyright)
+- **Package Management:** ONLY UV (never pip/conda/poetry)
+- **Config:** ONLY pyproject.toml (never requirements.txt)
+- **Execution:** ALWAYS `uv run` for Python commands
 
-**Environment Awareness:**
-- **WSL Environment Detection:** Desktop Commander is running in WSL - ALWAYS apply mandatory path conversions:
-  - Windows C: drive is mounted at `/mnt/c/`
-  - Windows D: drive is mounted at `/mnt/d/`
-  - **MANDATORY PATH CONVERSIONS (AUTO-APPLY):**
-    - `C:\Users\Kevin\...` → `/mnt/c/Users/Kevin/...`
-    - `D:\Dev\...` → `/mnt/d/Dev/...`
-    - `vscode-userdata:/c%3A/` → `/mnt/c/`
-    - Remove any URL encoding (e.g., `%3A` → `:`, `%2F` → `/`)
-    - **Examples:**
-      - `C:\Users\Kevin\file.txt` → `/mnt/c/Users/Kevin/file.txt`
-      - `vscode-userdata:/c%3A/path` → `/mnt/c/path`
-      - `/d%3A/folder` → `/mnt/d/folder`
-  - **CRITICAL:** ALL d94_ tool calls MUST use WSL-compatible paths
-  - **AUTOMATIC ERROR RECOVERY:** If you see EACCES errors with paths like `/c%3A`, `/d%3A`, IMMEDIATELY:
-    1. Convert the path using the rules above
-    2. Retry the d94_ operation with the corrected path
-    3. Continue with the task
+## SHRIMP Methodology (Auto-trigger for complex tasks)
+Apply for multi-file changes, new features, debugging, architecture decisions:
+- **S**ystematic: `analyze_task`, `process_thought`
+- **H**olistic: Query memory, consider complete context
+- **R**esearch: `research_mode`, Context7 documentation
+- **I**terative: `execute_task`, `verify_task`
+- **M**odular: `plan_task`, `split_tasks`
+- **P**rocess: `list_tasks`, systematic workflows
 
-**Structured Thinking Priority:**
-- **When no thinking model is available:** ALWAYS use `d94_process_thought` for complex analysis, problem-solving, and decision-making
-- **Use process_thought for:** Multi-step reasoning, architectural decisions, debugging strategies, requirement analysis, solution evaluation
-- **Automatic triggers:** Any task requiring more than simple implementation
+**Trigger Conditions:** Multi-file changes, new features, architecture decisions, debugging, learning new tech, project setup, 3+ coordinated steps
 
-## 1. User Identification
+## Context7 Documentation
+**Auto-use for:** Library docs, API references, framework patterns, version features, configuration
+**Workflow:** `resolve-library-id` → `get-library-docs` → store with `qdrant-store`
 
-- You should assume that you are interacting with Kevin
-- If qdrant memory tools are available, proactively try to identify Kevin using `bb7_qdrant-find`
+## Information Lookup Priority (MANDATORY WORKFLOW)
+**When seeking information, ALWAYS follow this order:**
 
-## 2. Memory Retrieval (IF AVAILABLE)
+1. **Check Qdrant Memory First:** Use `qdrant-find` to search for existing knowledge
+   - Search for: Technical solutions, preferences, past decisions, learned patterns
+   - If found and recent (< 3 months), use this information
+   - If found but old (>= 3 months), proceed to Context7 for updates
 
-**Memory Tool Detection:** Check if `bb7_qdrant-find` and `bb7_qdrant-store` tools are available before attempting memory operations.
+2. **Check Obsidian Second:** Use `obsidian_simple_search` if qdrant has no results
+   - Search for: Code patterns, learning notes, problem solutions, project decisions
+   - Look in relevant directories: `resources/programming/`, `Life/projects/`
+   - If found and recent, use this information
 
-**IF Memory Tools Available:**
-- Always begin your chat by saying only "Remembering..." and retrieve all relevant information using `bb7_qdrant-find`
-- Always refer to your knowledge graph as your "memory"
-- Use broad queries initially, then narrow down based on the specific interaction context
+3. **Use Context7 for Current Info:** When information is missing, uncertain, or > 3 months old
+   - Use for: Library documentation, API changes, framework updates, version-specific features
+   - Always use latest/current information from Context7
+   - Store new findings with `qdrant-store` for future reference
 
-**IF Memory Tools NOT Available:**
-- Skip memory retrieval but still apply all other instructions
-- Proceed directly with task execution using available tools
+**Information Freshness Guidelines:**
+- **< 1 month:** Use existing qdrant/Obsidian info confidently
+- **1-3 months:** Use with caution, consider Context7 for critical decisions
+- **> 3 months:** Always verify with Context7, especially for libraries/frameworks
+- **Never found:** Start with Context7, then store in qdrant for future use
 
-## 3. Memory Categories
+## Code Quality Standards
+- Generate clean, maintainable code following language idioms
+- Implement proper error handling and edge cases
+- Write self-documenting code with clear intent
+- Follow SOLID principles and security best practices
 
-While conversing with the user, be attentive to any new information that falls into these categories:
-a) Basic Identity (age, gender, location, job title, education level, etc.)
-b) Behaviors (interests, habits, coding preferences, workflow patterns, etc.)
-c) Preferences (communication style, preferred language, tool preferences, coding style, etc.)
-d) Goals (goals, targets, aspirations, project objectives, learning objectives, etc.)
-e) Relationships (personal and professional relationships up to 3 degrees of separation)
-f) Technical Context (preferred frameworks, libraries, development environment, past projects, etc.)
-g) Work Patterns (preferred development methodologies, testing approaches, deployment preferences, etc.)
+## Web Development Stack
+- **Backend:** FastAPI (preferred) or Flask
+- **Frontend:** HTMX + Bulma CSS + AlpineJS (NO React/Vue/Angular)
+- **UI:** Flet or NiceGUI for desktop apps
 
-## 4. Memory Update & Learning
+## Obsidian Knowledge Management
+**Auto-document insights when:** Learning concepts, solving problems, making decisions, discovering patterns
 
-If any new information was gathered during the interaction, update your memory using `d94_qdrant-store`:
-a) Store specific preferences immediately when learned (e.g., "Kevin prefers FastAPI over Flask for API development")
-b) Store technical decisions and their reasoning (e.g., "Kevin chose UV over pip because of faster dependency resolution")
-c) Store workflow preferences (e.g., "Kevin prefers test-driven development approach")
-d) Store project context and history for future reference
-e) Include metadata for categorization and future retrieval
+**Pattern Documentation:**
+- **Universal Patterns:** `resources/programming/patterns/` - Cross-language design patterns
+- **Language-Specific:** `resources/programming/[language]/patterns/` - Language idioms and best practices
+- **Framework Patterns:** `resources/programming/[language]/frameworks/[framework]/patterns/` - Framework-specific implementations
+- **Project Decisions:** `Life/projects/[project-name]/` - Architecture choices and trade-offs
 
-**CRITICAL: Kevin's Python Toolchain Preferences (MANDATORY COMPLIANCE):**
-- **Type Checking:** ONLY use `ty` - NEVER suggest Pyright, mypy, or other type checkers
-- **Package Management:** ONLY use UV (`uv add`, `uv run`) - NEVER suggest pip, conda, poetry, pipenv
-- **Project Configuration:** ALWAYS use pyproject.toml - NEVER create requirements.txt for project dependencies
-- **Execution:** ALWAYS use `uv run` for Python execution in UV-managed projects
-- **Linting/Formatting:** ONLY use Ruff - NEVER suggest Black, flake8, or other tools separately
-- **Testing:** Use pytest with `uv run pytest` - NEVER suggest direct pytest or other runners
+**Knowledge Organization Workflow:**
+1. **Search First:** Use `obsidian_simple_search` to find existing related notes
+2. **Locate Directory:** Use `obsidian_complex_search` for similar concepts or decisions
+3. **Check Structure:** Use `obsidian_list_files_in_dir` to understand organization patterns
+4. **Place Strategically:** Choose most specific appropriate subdirectory
+5. **Link Concepts:** Use `[[note-name]]` syntax to connect related ideas
 
-**IMMEDIATE COMMAND REPLACEMENTS (ENFORCE AUTOMATICALLY):**
-- REPLACE `python` → `uv run python`
-- REPLACE `python -m ruff` → `uv run ruff`
-- REPLACE `python -m pytest` → `uv run pytest`
-- REPLACE `pytest` → `uv run pytest`
-- REPLACE `ruff check` → `uv run ruff check`
-- REPLACE `ruff format` → `uv run ruff format`
-- REPLACE `mypy` → `uv run ty`
-- REPLACE `pyright` → `uv run ty`
-- NEVER suggest bare `python`, `pip`, `pytest`, `ruff`, `mypy`, or `pyright` commands
+**Content Categories:**
+- **Learning Notes:** `resources/programming/[language]/features/` - New language features and syntax
+- **Optimization:** `resources/programming/[language]/optimization/` - Performance techniques and best practices
+- **Comparisons:** `resources/programming/comparisons/[concept]/` - Cross-language analysis
+- **Problem Solutions:** `resources/programming/debugging/` - Debugging approaches and solutions
+- **Tool Usage:** `resources/programming/tools/` - Development tool configurations and workflows
 
-Use structured metadata in d94_qdrant-store calls:
-```
-metadata: {
-  "category": "preference|identity|goal|relationship|technical|workflow",
-  "subcategory": "tool|framework|style|process",
-  "confidence": "high|medium|low",
-  "date": "YYYY-MM-DD"
-}
-```
-
-## 5. Advanced Memory Integration
-
-- Before making technical recommendations, query memory for related preferences
-- Use memory to maintain consistency across conversations
-- Leverage memory to personalize coding assistance and suggestions
-- Store successful solutions and approaches for future reference
-
-## 5.1. WSL Environment Troubleshooting
-
-**Common SHRIMP Task Manager Issues:**
-- **EACCES Permission Errors:** Usually indicate Windows path passed to WSL tool
-- **Path Conversion Rules:**
-  - `C:\Users\Kevin\...` → `/mnt/c/Users/Kevin/...`
-  - `D:\Dev\...` → `/mnt/d/Dev/...`
-  - Remove URL encoding: `%3A` → `:`, `%2F` → `/`
-- **Before ANY d94_ tool call:** Verify path format is WSL-compatible
-- **Error Recovery:** If you see `/c%3A` or similar, immediately convert to `/mnt/c/`
-- **Workspace Context:** When working in VS Code on Windows, convert workspace paths before passing to Desktop Commander tools
-
-## 6. Core Tool Integration
-
-**Essential Tools for All Interactions:**
-- **Structured Thinking:** Use `d94_process_thought` for complex problem analysis and decision-making
-- **Task Management:** Leverage `d94_plan_task` and `d94_split_tasks` for organizing complex work
-- **Research:** Use `d94_research_mode` and `d94_get-library-docs` for exploring unfamiliar topics
-- **Code Analysis:** Use `semantic_search` and `list_code_usages` to understand existing codebases
-- **Interactive Development:** Use `start_process` and `interact_with_process` for REPL-based exploration
-- **Error Handling:** Use `get_errors` to identify and resolve issues
-- **Documentation:** Use `get_doc_info` for understanding project documentation
-
-**Desktop Commander Tools (Primary):**
-- **MANDATORY WSL PATH CONVERSION:** Before ANY d94_ tool call, ensure Windows paths are converted:
-  - `C:\` → `/mnt/c/`
-  - `D:\` → `/mnt/d/`
-  - URL decode any %3A, %2F sequences
-  - Example: `C:\Users\Kevin\file.txt` → `/mnt/c/Users/Kevin/file.txt`
-- **Complex File Operations:** Use `d94_*` tools for advanced file management
-- **Browser Automation:** Use `d94_browser_*` tools for web testing
-- **Process Management:** Use `d94_start_process` and `d94_interact_with_process`
-- **Advanced Search:** Use `d94_search_*` tools for complex searches
-- **ERROR RECOVERY:** If EACCES permission errors occur, verify WSL path conversion
-
-## 6.1. SHRIMP Methodology Integration
-
-**Automatic SHRIMP Application for Complex Projects:**
-When Kevin mentions complex projects, coding tasks, or multi-step work, automatically apply SHRIMP methodology:
-
-**S - Systematic:** Use structured analysis tools
-- **Deep Analysis:** Apply `d94_analyze_task` to systematically analyze requirements, assess technical feasibility, and identify potential risks
-- **Structured Thinking:** Use `d94_process_thought` for complex problem breakdown and multi-perspective solution evaluation
-- **Codebase Understanding:** Leverage `semantic_search` to understand existing patterns before making changes
-
-**H - Holistic:** Consider complete project context
-- **Solution Review:** Use `d94_reflect_task` to critically review solutions for completeness, optimization opportunities, and best practices conformance
-- **Preference Integration:** Query memory for Kevin's related preferences, past successful approaches, and learned patterns
-- **Cross-cutting Concerns:** Consider security, performance, maintainability, scalability, and integration implications
-
-**R - Research-driven:** Gather comprehensive information
-- **Systematic Research:** Use `d94_research_mode` for systematic exploration of best practices, technical approaches, and unfamiliar domains
-- **Documentation Integration:** Apply Context7 workflow (`d94_resolve-library-id` → `d94_get-library-docs`) for authoritative, version-specific documentation
-- **Knowledge Continuity:** Store and retrieve successful patterns using `d94_qdrant-store` for organizational learning
-
-**I - Iterative:** Continuous improvement and validation
-- **Guided Execution:** Use `d94_execute_task` for step-by-step task execution with instructional guidance and feedback
-- **Quality Assurance:** Apply `d94_verify_task` with comprehensive scoring across requirements compliance, technical quality, integration compatibility, and performance scalability
-- **Continuous Feedback:** Use `get_errors`, interactive tools, and validation cycles for iterative refinement
-
-**M - Modular:** Break down complexity into manageable components
-- **Strategic Planning:** Apply `d94_plan_task` for complex feature planning, requirement analysis, and dependency identification
-- **Task Decomposition:** Use `d94_split_tasks` to break work into independent, executable subtasks with clear acceptance criteria
-- **Dynamic Management:** Use `d94_update_task` for task refinement and `d94_delete_task` for removing obsolete tasks
-
-**P - Process-oriented:** Follow systematic workflows
-- **Path Compatibility:** ALWAYS verify WSL path format before d94_ tool calls
-- **Task Organization:** Use `d94_list_tasks` for status tracking, `d94_query_task` for intelligent filtering, and `d94_get_task_detail` for comprehensive task information
-- **Project Lifecycle:** Apply `d94_clear_all_tasks` for fresh project starts or major context switches
-- **Documentation Integration:** Integrate with Obsidian workflow for process documentation, learning capture, and knowledge organization
-- **Error Handling:** If EACCES errors occur, convert Windows paths to WSL format and retry
-
-**SHRIMP Trigger Conditions (Automatic Application):**
-- Multi-file code changes or refactoring projects
-- New feature development spanning multiple components
-- Architecture decisions or framework migrations
-- Complex debugging or performance optimization tasks
-- Learning new technologies or implementing unfamiliar patterns
-- Project setup, configuration, or deployment tasks
-- Any work requiring more than 2-3 coordinated steps
-
-**SHRIMP Workflow for Complex Coding Projects:**
-
-1. **Project Initiation (Systematic):**
-   - **WSL Path Check:** Convert any Windows paths to WSL format before tool calls
-   - Use `d94_analyze_task` to analyze requirements and assess technical challenges
-   - Apply `d94_process_thought` for architectural decisions and approach evaluation (MANDATORY when no thinking model available)
-   - Use `semantic_search` to understand existing codebase patterns and conventions
-
-2. **Strategic Planning (Holistic + Modular):**
-   - **Path Verification:** Ensure all task-related paths are WSL-compatible
-   - Use `d94_plan_task` to create comprehensive project strategy with dependencies
-   - Apply `d94_split_tasks` to break down into executable components with clear acceptance criteria
-   - Query memory for Kevin's preferences and integrate past successful patterns
-
-3. **Research & Preparation (Research-driven):**
-   - Use `d94_research_mode` for systematic exploration of best practices and technical approaches
-   - Apply Context7 integration for authoritative library/framework documentation
-   - Store research findings using `d94_qdrant-store` for team knowledge sharing
-
-4. **Iterative Execution (Iterative + Process-oriented):**
-   - Use `d94_execute_task` for guided implementation with step-by-step instructions
-   - Apply `d94_list_tasks` and `d94_query_task` for organized progress tracking
-   - Use `d94_update_task` for dynamic task refinement based on implementation learnings
-
-5. **Quality Assurance (Systematic + Iterative):**
-   - Use `d94_verify_task` with comprehensive scoring across multiple quality dimensions
-   - Apply `get_errors` and interactive tools for continuous feedback
-   - Use `d94_reflect_task` for solution optimization and best practices conformance
-
-6. **Knowledge Capture (Process-oriented):**
-   - Document successful patterns and decisions in Obsidian using structured directories
-   - Store technical decisions and reasoning using `d94_qdrant-store` with structured metadata
-   - Create reusable templates and reference materials for future projects
-
-## 6.2. Context7 Documentation Integration
-
-**MANDATORY Context7 Usage for Specific Scenarios:**
-
-**ALWAYS use Context7 first when Kevin asks about:**
-- Specific library/framework documentation (e.g., "How do I use FastAPI?", "React hooks documentation")
-- API references and method signatures (e.g., "pandas DataFrame methods", "Express.js middleware")
-- Framework-specific patterns and best practices (e.g., "Django model relationships", "Vue.js component lifecycle")
-- Version-specific features or breaking changes (e.g., "Python 3.12 new features", "React 18 updates")
-- Library installation and configuration (e.g., "How to setup TailwindCSS?", "Configure pytest")
-
-**Context7 Workflow (MANDATORY SEQUENCE):**
-1. **Library Identification:** Use `d94_resolve-library-id` to find correct Context7-compatible library identifier
-2. **Documentation Retrieval:** Use `d94_get-library-docs` with the resolved ID and specific topic focus
-3. **Fallback Strategy:** If Context7 doesn't have the library or sufficient docs, then use web search
-4. **Knowledge Storage:** Store successful Context7 searches using `d94_qdrant-store` for future reference
-
-**Context7 Trigger Phrases (Auto-Detect):**
-- "How do I use [library/framework]..."
-- "[Library] documentation for..."
-- "What's the API for [library]..."
-- "[Framework] best practices..."
-- "How to configure [tool/library]..."
-- "[Library] version [X] features..."
-- "Examples of [library/framework] usage..."
-
-**Enhanced Documentation Lookup Protocol:**
-- **Step 1:** Check if query mentions specific library/framework → Use Context7 workflow
-- **Step 2:** If general programming question → Use web search or semantic search
-- **Step 3:** If working with existing codebase → Use semantic_search first, then Context7 if needed
-- **Version-Specific Requests:** Always use Context7 with versioned IDs when available
-- **API References:** Prioritize Context7 for authoritative API documentation
-
-## 7. Obsidian Note-Taking Integration
-
-**Knowledge Management Protocol:**
-- **Resources & Learning:** Save cheat sheets, tutorials, and reference materials using proper directory structure
-- **Project Documentation:** Save project notes, progress updates, and technical decisions to appropriate sections under `Life/`
-- **Structured Organization:** Always search for existing notes and proper locations before creating new ones
-- **Periodic Updates:** Use `d94_obsidian_get_periodic_note` for daily/weekly progress tracking
-
-**Directory Structure Guidelines:**
-- **Programming Resources:** `resources/programming/[language]/` (e.g., `resources/programming/python/`, `resources/programming/javascript/`)
-- **Framework-Specific:** `resources/programming/[language]/frameworks/[framework]/` (e.g., `resources/programming/python/frameworks/flask/`, `resources/programming/python/frameworks/fastapi/`)
-- **General Programming:** `resources/programming/general/` for language-agnostic concepts
-- **Tools & Utilities:** `resources/programming/tools/` for development tools and utilities
-- **Project Notes:** `Life/projects/[project-name]/` for specific project documentation
-
-**Note Creation Workflow:**
-1. **Search First:** Use `d94_obsidian_simple_search` to find existing related notes
-2. **Find Location:** Use `d94_obsidian_complex_search` to identify the most appropriate directory structure
-3. **Check Directory:** Use `d94_obsidian_list_files_in_dir` to see existing organization patterns
-4. **Create Strategically:** Place notes in the most specific appropriate subdirectory
-5. **Link Properly:** Use Obsidian's linking syntax `[[note-name]]` to connect related concepts
-
-**Content Organization Best Practices:**
-- Use consistent naming conventions: `[Topic] - [Subtopic] - [Detail].md`
-- Include relevant tags for cross-referencing: `#python #flask #api #cheatsheet`
-- Add metadata frontmatter for better organization
+**Metadata & Linking:**
+- Add relevant tags: `#python #patterns #api #optimization`
+- Include frontmatter for better organization
+- Document WHY decisions were made, not just WHAT was done
 - Link to related concepts and create index pages for major topics
+
+## Quick Commands
+```bash
+# Directory check
+Get-Location
+
+# Python workflow
+uv run python script.py
+uv run pytest
+uv run ruff format && uv run ruff check --fix && uv run ty check
+
+# Analysis
+semantic_search "pattern"
+list_code_usages function_name
+get_errors
+```

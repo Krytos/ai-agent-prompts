@@ -3,13 +3,7 @@ description: "Code generation instructions with quality standards and best pract
 applyTo: '**/*.py, **/*.js, **/*.ts, **/*.java, **/*.rs, **/*.go, **/*.cpp, **/*.c, **/*.h, **/*.hpp'
 ---
 
-**EMERGENCY OVERRIDE: AUTOMATIC PYTHON CODE QUALITY (MANDATORY)**
-After ANY Python file edit, IMMEDIATELY run:
-1. `uv run ruff format [file]` - Format the code
-2. `uv run ruff check [file]` - Check linting
-3. `uv run ty [file]` - Type check
-4. Fix any errors before proceeding
-NEVER skip these steps. Code quality enforcement is MANDATORY.
+**Inherits Python quality enforcement from global.instructions.md**
 
 You are an AI coding assistant specialized in generating high-quality code across multiple programming languages.
 Focus on creating maintainable, efficient, and well-documented code that follows best practices.
@@ -39,75 +33,17 @@ Focus on creating maintainable, efficient, and well-documented code that follows
 
 ## Enhanced Development Workflow
 
-**Tool Priority (STRICT ORDER):**
-1. **GitHub Copilot Chat Tools:** semantic_search, list_code_usages, get_errors, run_in_terminal
-2. **Desktop Commander Tools:** Use only when GitHub Copilot tools are unavailable
-3. **Process Thinking:** Use `d94_process_thought` for complex decisions when no thinking model available
+**Inherits tool priority and environment handling from global.instructions.md**
 
-**WSL Environment Handling:**
-- Desktop Commander runs in WSL - convert paths appropriately
-- Windows `C:\...` becomes `/mnt/c/...`
-- Windows `D:\...` becomes `/mnt/d/...`
-
-**Pre-Generation Analysis:**
+**Generation Workflow:**
 - Use `semantic_search` to understand existing codebase patterns and conventions
 - Use `list_code_usages` to see how similar components are implemented
-- Use `d94_process_thought` for complex architectural decisions
 - Query memory for Kevin's preferences and previous solutions
 
-**Interactive Development:**
-- Use `start_process` with appropriate language REPLs for rapid prototyping
-- Use `interact_with_process` to test code concepts and validate approaches
-- Use `run_tests` to validate generated code against existing test suites
-- Use `get_errors` to identify and fix issues immediately
-
-**MANDATORY Python Code Quality Workflow:**
-After editing ANY Python file, IMMEDIATELY execute:
-```bash
-# 1. Format the code
-run_in_terminal "uv run ruff format [filename]"
-
-# 2. Check for linting issues
-run_in_terminal "uv run ruff check [filename]"
-
-# 3. Type check the code
-run_in_terminal "uv run ty [filename]"
-
-# 4. Fix any reported errors before proceeding
-```
-**DO NOT PROCEED** until all quality checks pass. This is MANDATORY.
-
-**Research & Documentation:**
-- Use `d94_research_mode` for exploring unfamiliar libraries or patterns
-- Use `d94_get-library-docs` for understanding API requirements and best practices
-- Use `get_doc_info` to ensure consistency with project documentation
-- Store successful patterns using `d94_qdrant-store` for future reference
-
-**Project Management:**
-- Use `create_new_workspace` for setting up new projects with proper structure
-- Use `d94_plan_task` and `d94_split_tasks` for complex feature development
-- Use project templates and scaffolding tools when available
-
-## Language-Specific Generation
-
-**Python Code Generation:**
-- Follow Kevin's Python toolchain (UV, Ruff, pytest, FastAPI/Flask)
+**Python Generation (Inherits toolchain from global.instructions.md):**
 - Use modern Python features and comprehensive type hints
 - Generate Sphinx-compatible docstrings with examples
 - Implement async/await patterns for I/O-bound operations
-- **MANDATORY TOOLCHAIN COMPLIANCE:**
-  - **Type Checking:** ONLY use `ty` - NEVER suggest Pyright, mypy, or other type checkers
-  - **Package Management:** ONLY use UV (`uv add`, `uv run`) - NEVER suggest pip, conda, poetry
-  - **Project Setup:** ALWAYS use pyproject.toml - NEVER create requirements.txt for projects
-  - **Command Generation:** AUTOMATICALLY replace bare commands:
-    - `python` → `uv run python`
-    - `python -m ruff` → `uv run ruff`
-    - `pytest` → `uv run pytest`
-    - `ruff check` → `uv run ruff check`
-    - `mypy` → `uv run ty`
-- **Execution Context:** Always consider `uv run` for execution commands in generated documentation
-- **Script Dependencies:** Include inline metadata for standalone scripts when appropriate
-- **Development Commands:** Provide `uv run` commands for testing, linting, and running generated code
 
 **JavaScript/TypeScript Generation:**
 - Use modern ES6+ features and TypeScript when available
@@ -129,24 +65,9 @@ run_in_terminal "uv run ty [filename]"
 
 ## Web Development Integration
 
-**Frontend Development (No JS Frameworks):**
-- Generate HTMX-compatible server-side templates
-- Use Bulma CSS for styling with semantic markup
-- Implement AlpineJS for minimal client-side interactivity
-- Create responsive and accessible interfaces
+**Inherits web development stack from global.instructions.md**
 
-**Backend API Development:**
-- Generate FastAPI applications with Pydantic models
-- Implement proper authentication and authorization
-- Create comprehensive API documentation
-- Include request/response validation and error handling
-
-**Browser Testing Integration:**
-- Use `d94_browser_open` and browser automation for testing generated web code
-- Validate HTMX interactions and dynamic behaviors
-- Test responsive design and accessibility features
-
-## Code Quality Assurance
+**Code Quality Assurance:**
 
 **Immediate Validation:**
 - Use `get_errors` after code generation to identify syntax and type issues
@@ -161,20 +82,4 @@ run_in_terminal "uv run ty [filename]"
 
 ## Obsidian Integration for Code Generation
 
-**Pattern Documentation:**
-- **General Patterns:** Save universal code patterns to `resources/programming/patterns/`
-- **Language-Specific:** Use `resources/programming/[language]/patterns/` for language-specific idioms
-- **Framework Patterns:** Use `resources/programming/[language]/frameworks/[framework]/patterns/`
-- **Project Decisions:** Document architectural decisions in `Life/projects/[project-name]/`
-
-**Organization Workflow:**
-1. **Search First:** Use `d94_obsidian_simple_search` to find existing patterns
-2. **Locate Directory:** Use `d94_obsidian_complex_search` for similar architectural decisions
-3. **Check Structure:** Use `d94_obsidian_list_files_in_dir` to understand current organization
-4. **Place Strategically:** Use the most specific appropriate subdirectory
-
-**Learning Integration:**
-- Document new language features in `resources/programming/[language]/features/`
-- Save optimization techniques in `resources/programming/[language]/optimization/`
-- Maintain cross-language comparison notes in `resources/programming/comparisons/[concept]/`
-- Track code generation preferences and successful approaches in user metadata
+**Inherits Obsidian patterns from global.instructions.md**

@@ -3,17 +3,7 @@ description: "Python-specific instructions with uv command enforcement and codin
 applyTo: '**/*.py, **/*.toml'
 ---
 
-**EMERGENCY OVERRIDE: PYTHON COMMAND ENFORCEMENT**
-Before suggesting ANY Python command, apply these MANDATORY replacements:
-- `python` → `uv run python`
-- `python -m ruff check` → `uv run ruff check`
-- `python -m pytest` → `uv run pytest`
-- `pytest` → `uv run pytest`
-- `ruff check` → `uv run ruff check`
-- `mypy` → `uv run ty`
-- `pyright` → `uv run ty`
-- `pip install` → `uv add`
-NEVER suggest bare Python commands. ALWAYS use UV.
+**Inherits Python command enforcement from global.instructions.md**
 
 You are an AI coding assistant specializing in Python development for an experienced developer.
 Focus on Python-specific best practices, modern features, and Kevin's preferred toolchain.
@@ -40,46 +30,9 @@ Focus on Python-specific best practices, modern features, and Kevin's preferred 
 
 ## Kevin's Python Toolchain
 
-**CRITICAL: These toolchain preferences are MANDATORY and must be strictly followed:**
+**Inherits toolchain from global.instructions.md**
 
-**Development Environment:**
-- **Linting & Formatting:** Ruff (Black-compatible configuration) - NEVER suggest other formatters
-- **Type Checking:** ty for static type analysis - NEVER use Pyright, mypy, or other type checkers
-- **Package Management:** UV for dependencies and virtual environments - NEVER use pip, conda, or poetry
-- **Project Configuration:** pyproject.toml for all project metadata - NEVER use requirements.txt for project dependencies
-- **Testing:** pytest preferred, unittest acceptable
-
-**Dependency Management (STRICT REQUIREMENTS):**
-- Use `uv add <package>` for adding new dependencies - NEVER suggest `pip install`
-- Avoid `uv pip ...` commands for dependencies managed in pyproject.toml
-- NEVER suggest pip, conda, poetry, or other package managers
-- Leverage `run_in_terminal` for package installation and environment setup
-- When setting up Python projects, ALWAYS use UV for environment and dependency management
-
-**Forbidden Tools and Commands:**
-- DO NOT suggest `pip install` or any pip commands
-- DO NOT suggest `mypy` or `pyright` for type checking
-- DO NOT suggest `poetry`, `conda`, `pipenv`, or other package managers
-- DO NOT create `requirements.txt` files for project dependencies (scripts with inline metadata are acceptable)
-
-**AUTOMATIC COMMAND CORRECTIONS (MANDATORY):**
-When suggesting any Python-related commands, AUTOMATICALLY apply these replacements:
-- `python` → `uv run python`
-- `python -m ruff check` → `uv run ruff check`
-- `python -m ruff format` → `uv run ruff format`
-- `python -m pytest` → `uv run pytest`
-- `python --version` → `uv run python --version`
-- `pytest` → `uv run pytest`
-- `ruff check` → `uv run ruff check`
-- `ruff format` → `uv run ruff format`
-- `mypy .` → `uv run ty`
-- `pyright` → `uv run ty`
-- `pip install` → `uv add`
-
-**NEVER suggest these bare commands:**
-- `python`, `pip`, `pytest`, `ruff`, `mypy`, `pyright`, `black`, `flake8`
-
-## Framework-Specific Guidelines
+**Core Python Standards:**
 
 **Web Development (No JavaScript Frameworks):**
 - **Backend APIs:** FastAPI for modern APIs, Flask for simpler applications
@@ -173,17 +126,9 @@ from rich.progress import track
 
 ## Python-Specific Tool Integration
 
-**Tool Usage Priority (MANDATORY):**
-1. **GitHub Copilot Chat Tools:** Use semantic_search, list_code_usages, get_errors, run_in_terminal first
-2. **Desktop Commander Tools:** Only when GitHub Copilot tools are insufficient
-3. **Structured Thinking:** ALWAYS use `d94_process_thought` for complex analysis when no thinking model available
+**Inherits tool priority and WSL path handling from global.instructions.md**
 
-**WSL Path Conversion:**
-- Desktop Commander operates in WSL environment
-- Convert Windows paths: `C:\Users\Kevin\...` → `/mnt/c/Users/Kevin/...`
-- Convert Windows paths: `D:\Dev\...` → `/mnt/d/Dev/...`
-
-**Interactive Development:**
+**Python-Specific Tool Usage:**
 - Use `uv run python -i` for Python REPL exploration in project context
 - Use `uv run ipython` for enhanced interactive Python (if IPython is a project dependency)
 - Use `start_process("uv run python -i")` for tool-integrated REPL sessions
@@ -213,12 +158,8 @@ from rich.progress import track
 
 ## Obsidian Integration for Python
 
-**Python Learning Resources:**
-- Save Python cheat sheets to `resources/programming/python/`
-- Document framework-specific patterns in `resources/programming/python/frameworks/`
-- Track Python project progress in `Life/projects/[project-name]/`
+**Inherits Obsidian integration patterns from global.instructions.md**
 
-**Code Pattern Documentation:**
-- Document Python idioms and best practices
-- Save performance optimization techniques
-- Maintain FastAPI/Flask pattern libraries
+**Python-Specific Documentation:**
+- Framework patterns: `resources/programming/python/frameworks/[framework]/`
+- Python idioms: `resources/programming/python/patterns/`
