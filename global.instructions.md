@@ -1,4 +1,3 @@
-// filepath: c:\Users\Kevin\AppData\Roaming\Code\User\prompts\global.instructions.md
 ---
 description: "Essential global instructions - Kevin's toolchain preferences and environment handling"
 applyTo: '**'
@@ -17,19 +16,38 @@ NEVER suggest bare Python commands.
 **PYTHON CODE QUALITY (AUTO-EXECUTE)**
 After ANY Python edit: `uv run ruff format` → `uv run ruff check --fix` → `uv run ty check`
 
+**MANDATORY SHRIMP PREPROCESSING (AUTO-EXECUTE)**
+Before ANY complex action, MUST use appropriate SHRIMP tool:
+- **Complex analysis/planning** → `d94_analyze_task` (REQUIRED first for systematic analysis)
+- **Multi-step reasoning** → `d94_process_thought` (REQUIRED for structured thinking)
+- **Research/exploration** → `d94_research_mode` (REQUIRED for systematic investigation)
+- **Project breakdown** → `d94_plan_task` + `d94_split_tasks` (REQUIRED for task management)
+- **Implementation guidance** → `d94_execute_task` (REQUIRED for guided execution)
+- **Quality verification** → `d94_verify_task` (REQUIRED after completion)
+
+**Auto-trigger Criteria (MANDATORY):**
+- ANY request with 3+ coordinated steps
+- Architecture or design decisions
+- Multi-file operations or changes
+- Learning new technologies or frameworks
+- Debugging complex issues
+- Project setup or configuration
+- Problem-solving requiring systematic approach
+NEVER bypass SHRIMP tools for complex operations.
+
 ## User & Memory
 - User: Kevin
-- Memory: Use `qdrant-find` at start, `qdrant-store` for new preferences
+- Memory: Use `bb7_qdrant-find` at start, `bb7_qdrant-store` for new preferences
 - **Knowledge Storage**:
-  - **Global/General**: Use `qdrant-global` tool for non-project knowledge
+  - **Global/General**: Use `bb7_qdrant-find` and `bb7_qdrant-store` for non-project knowledge
   - **Project-Specific**: Use project qdrant tool (check availability first)
 - Categories: Identity, behaviors, preferences, goals, technical context, work patterns
 
 ## Tool Priority
 1. **GitHub Copilot Tools** (Windows): `semantic_search`, `list_code_usages`, `get_errors`, `run_in_terminal`
 2. **Desktop Commander Tools** (WSL): Desktop Commander tools (convert paths first)
-3. **SHRIMP Task Manager**: Complex projects (`plan_task`, `split_tasks`)
-4. **Context7**: Library documentation (`resolve-library-id` → `get-library-docs`)
+3. **SHRIMP Task Manager**: Complex projects (`d94_plan_task`, `d94_split_tasks`)
+4. **Context7**: Library documentation (`d94_resolve-library-id` → `d94_get-library-docs`)
 
 ## Kevin's Python Toolchain (MANDATORY)
 - **Type Checking:** ONLY `ty` (never mypy/pyright)
@@ -39,23 +57,23 @@ After ANY Python edit: `uv run ruff format` → `uv run ruff check --fix` → `u
 
 ## SHRIMP Methodology (Auto-trigger for complex tasks)
 Apply for multi-file changes, new features, debugging, architecture decisions:
-- **S**ystematic: `analyze_task`, `process_thought`
+- **S**ystematic: `d94_analyze_task`, `d94_process_thought`
 - **H**olistic: Query memory, consider complete context
-- **R**esearch: `research_mode`, Context7 documentation
-- **I**terative: `execute_task`, `verify_task`
-- **M**odular: `plan_task`, `split_tasks`
-- **P**rocess: `list_tasks`, systematic workflows
+- **R**esearch: `d94_research_mode`, Context7 documentation
+- **I**terative: `d94_execute_task`, `d94_verify_task`
+- **M**odular: `d94_plan_task`, `d94_split_tasks`
+- **P**rocess: `d94_list_tasks`, systematic workflows
 
 **Trigger Conditions:** Multi-file changes, new features, architecture decisions, debugging, learning new tech, project setup, 3+ coordinated steps
 
 ## Context7 Documentation
 **Auto-use for:** Library docs, API references, framework patterns, version features, configuration
-**Workflow:** `resolve-library-id` → `get-library-docs` → store with `qdrant-store`
+**Workflow:** `d94_resolve-library-id` → `d94_get-library-docs` → store with `bb7_qdrant-store`
 
 ## Information Lookup Priority (MANDATORY WORKFLOW)
 **When seeking information, ALWAYS follow this order:**
 
-1. **Check Qdrant Memory First:** Use `qdrant-find` to search for existing knowledge
+1. **Check Qdrant Memory First:** Use `bb7_qdrant-find` to search for existing knowledge
    - Search for: Technical solutions, preferences, past decisions, learned patterns
    - If found and recent (< 3 months), use this information
    - If found but old (>= 3 months), proceed to Context7 for updates
@@ -68,7 +86,7 @@ Apply for multi-file changes, new features, debugging, architecture decisions:
 3. **Use Context7 for Current Info:** When information is missing, uncertain, or > 3 months old
    - Use for: Library documentation, API changes, framework updates, version-specific features
    - Always use latest/current information from Context7
-   - Store new findings with `qdrant-store` for future reference
+   - Store new findings with `bb7_qdrant-store` for future reference
 
 **Information Freshness Guidelines:**
 - **< 1 month:** Use existing qdrant/Obsidian info confidently

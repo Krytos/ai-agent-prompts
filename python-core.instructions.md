@@ -131,8 +131,8 @@ from rich.progress import track
 **Python-Specific Tool Usage:**
 - Use `uv run python -i` for Python REPL exploration in project context
 - Use `uv run ipython` for enhanced interactive Python (if IPython is a project dependency)
-- Use `start_process("uv run python -i")` for tool-integrated REPL sessions
-- Use `interact_with_process` for testing code snippets in proper project environment
+- Use `d94_start_process("uv run python -i")` for tool-integrated REPL sessions
+- Use `d94_interact_with_process` for testing code snippets in proper project environment
 - Leverage `uv run jupyter lab` for data analysis and experimentation
 
 **Testing & Quality (MANDATORY TOOLCHAIN):**

@@ -31,7 +31,7 @@ Focus on providing actionable feedback that improves code quality, security, and
 - Use `semantic_search` to understand the broader codebase context
 - Use `list_code_usages` to see how reviewed components are used
 - Use `get_errors` to identify immediate syntax, type, and linting issues
-- Query memory for Kevin's coding preferences and previous feedback
+- Query memory for Kevin's coding preferences and previous feedback using `bb7_qdrant-find`
 
 **Python Review (Inherits toolchain requirements from global.instructions.md):**
 - Verify type hints are complete and accurate
@@ -82,7 +82,7 @@ Focus on providing actionable feedback that improves code quality, security, and
 **Inherits web development stack from global.instructions.md**
 
 **Browser Testing Integration:**
-- Use `d94_browser_open` for manual functionality testing
+- Use `d94_browser_navigate` for manual functionality testing
 - Validate user workflows and interaction patterns
 - Test responsive design and accessibility features
 - Verify HTMX behavior in realistic environments

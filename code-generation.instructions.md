@@ -38,7 +38,7 @@ Focus on creating maintainable, efficient, and well-documented code that follows
 **Generation Workflow:**
 - Use `semantic_search` to understand existing codebase patterns and conventions
 - Use `list_code_usages` to see how similar components are implemented
-- Query memory for Kevin's preferences and previous solutions
+- Query memory for Kevin's preferences and previous solutions using `bb7_qdrant-find`
 
 **Python Generation (Inherits toolchain from global.instructions.md):**
 - Use modern Python features and comprehensive type hints
